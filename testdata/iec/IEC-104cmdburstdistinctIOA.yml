@@ -1,0 +1,33 @@
+title: IEC-104 multiple unique IOAs targeted by same source and ASDU addr (suspicious burst)
+id: b8d2b9d3-iec104-ioa-burst
+status: experimental
+logsource:
+  product: network
+  service: tshark-json
+detection:
+  port2404:
+    tcp.dstport: "2404"
+  cmd_old:
+    104asdu.typeid|re: "^(45|46)$"
+  cmd_new:
+    iec60870_asdu.typeid|re: "^(45|46)$"
+  # Optional: execution phase (S/E=1) for both SC and DC
+  exec_any:
+    selection|re: ".*"   # no-op placeholder to allow condition ORs below in sigmalite
+  condition: port2404 and (cmd_old or cmd_new)
+fields:
+  - frame.time
+  - ip.src
+  - ip.dst
+  - 104asdu.addr
+  - iec60870_asdu.addr
+  - 104asdu.ioa
+  - iec60870_asdu.ioa
+falsepositives:
+  - Bulk operations or testing; tune by maintenance windows and authorized hosts
+level: medium
+tags:
+  - attack.tactic.impact
+  - protocol.iec104
+references:
+  - https://www.netresec.com/?page=Blog&month=2022-04&post=Industroyer2-IEC-104-Analysis

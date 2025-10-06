@@ -1,0 +1,43 @@
+title: IEC-104 Single Command Execute (TypeID 45) with S/E=1 to critical IOAs (Industroyer2)
+id: 4a1e6b27-iec104-ind2-sc-exec
+status: experimental
+logsource:
+  product: network
+  service: tshark-json
+detection:
+  port2404:
+    tcp.dstport: "2404"
+  sc_old:
+    104asdu.typeid: "45"
+  sc_new:
+    iec60870_asdu.typeid: "45"
+  exec_old:
+    104asdu.sco.se: "1"
+  exec_new:
+    iec60870_asdu.sco.se: "1"
+  # Optional: narrow to SA=3 because Industroyer2 mixed ON/OFF there
+  sa3_old:
+    104asdu.addr: "3"
+  sa3_new:
+    iec60870_asdu.addr: "3"
+  condition: port2404 and (sc_old or sc_new) and (exec_old or exec_new) and (sa3_old or sa3_new)
+fields:
+  - frame.number
+  - ip.src
+  - ip.dst
+  - 104asdu.ioa
+  - iec60870_asdu.ioa
+  - 104asdu.sco.on
+  - iec60870_asdu.sco.on
+  - 104asdu.addr
+  - iec60870_asdu.addr
+falsepositives:
+  - Normal control operations (select-before-execute workflows); tune by asset/time window
+level: high
+tags:
+  - attack.ics
+  - protocol.iec104
+  - industroyer2
+references:
+  - https://www.netresec.com/?page=Blog&month=2022-04&post=Industroyer2-IEC-104-Analysis
+  - https://www.wireshark.org/docs/dfref/1/104asdu.html

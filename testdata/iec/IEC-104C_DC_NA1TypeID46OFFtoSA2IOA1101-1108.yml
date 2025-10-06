@@ -1,0 +1,45 @@
+title: IEC-104 Double Command OFF to SA=2 IOA 1101–1108 (Industroyer2 pattern)
+id: 9f3b9b3a-iec104-ind2-sa2-1101-1108-dc-off
+status: experimental
+logsource:
+  product: network
+  service: tshark-json
+detection:
+  port2404:
+    tcp.dstport: "2404"
+  dc_old:
+    104asdu.typeid: "46"
+  dc_new:
+    iec60870_asdu.typeid: "46"
+  sa2_old:
+    104asdu.addr: "2"
+  sa2_new:
+    iec60870_asdu.addr: "2"
+  ioa_range_old:
+    104asdu.ioa|re: "^110[1-8]$"
+  ioa_range_new:
+    iec60870_asdu.ioa|re: "^110[1-8]$"
+  off_old:
+    104asdu.dco.on: "0"
+  off_new:
+    iec60870_asdu.dco.on: "0"
+  condition: port2404 and (dc_old or dc_new) and (sa2_old or sa2_new) and (ioa_range_old or ioa_range_new) and (off_old or off_new)
+fields:
+  - frame.number
+  - ip.src
+  - ip.dst
+  - 104asdu.ioa
+  - iec60870_asdu.ioa
+  - 104asdu.addr
+  - iec60870_asdu.addr
+  - 104asdu.dco.on
+  - iec60870_asdu.dco.on
+falsepositives:
+  - Planned operations targeting these IOAs
+level: high
+tags:
+  - attack.ics
+  - protocol.iec104
+  - industroyer2
+references:
+  - https://www.netresec.com/?page=Blog&month=2022-04&post=Industroyer2-IEC-104-Analysis
