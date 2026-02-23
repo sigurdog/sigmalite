@@ -1,0 +1,9 @@
+title: Test Rule for a Specific Phrase
+status: test
+description: Detects if the phrase Test-signature is present in Hex
+author: sigurdog
+date: 23-02-2026
+tags: 
+  - 
+content: 54 65 73 74 2d 73 69 67 6e 61 74 75 72 65
+
