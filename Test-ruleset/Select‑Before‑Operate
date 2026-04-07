@@ -1,0 +1,55 @@
+# Denne er ikke veldig bra
+title: IEC-104 Select-Before-Operate (SBO) Misuse Detection
+id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0–9, a–f), og y er 8, 9, a eller b.
+description: Detects misuse of the Select-Before-Operate (SBO) mechanism in IEC-104, 
+  including Execute without Select, excessive Select commands, or 
+  Execute on IOA that was not properly selected.
+status: experimental
+author: Sigurd Østerholt Gamst
+# date: xxxx/xx/xx
+
+logsource:
+  product: network
+  service: ids
+
+detection:
+  # IEC-104 Application Layer Type (example placeholders)
+  select_cmd:
+    iec104.type: "C_SC_NA_1"
+    iec104.operation: "select"
+
+  operate_cmd:
+    iec104.type: "C_SC_NA_1"
+    iec104.operation: "execute"
+
+  operate_no_select:
+    iec104.operation: "execute"
+    iec104.has_recent_select: false   # field from enhanced ICS parsers
+                                      # OR remove if unsupported
+
+  repeated_select:
+    iec104.operation: "select"
+    event_count: ">5"                  # depends on backend
+                                       # represents repetitive selects
+
+  operate_wrong_ioa:
+    iec104.operation: "execute"
+    iec104.selected_ioa_matches: false  # custom ICS IDS logic
+
+  condition: operate_no_select or repeated_select or operate_wrong_ioa
+
+fields:
+  - source_ip
+  - destination_ip
+  - iec104.type
+  - iec104.operation
+  - iec104.ioa
+
+falsepositives:
+  - Commissioning or testing periods
+  - Non-standard IEC-104 implementations lacking SBO semantics
+
+level: high
+
+tags:
+    - 
