@@ -1,11 +1,10 @@
-# Denne er ikke veldig bra
 title: IEC-104 Select-Before-Operate (SBO) Misuse Detection
 id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0–9, a–f), og y er 8, 9, a eller b.
 description: Detects misuse of the Select-Before-Operate (SBO) mechanism in IEC-104, 
   including Execute without Select, excessive Select commands, or 
   Execute on IOA that was not properly selected.
-status: experimental
-author: Sigurd Østerholt Gamst
+status: test
+author: sigurdog
 # date: xxxx/xx/xx
 
 logsource:
