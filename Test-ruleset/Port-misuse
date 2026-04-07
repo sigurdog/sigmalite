@@ -1,5 +1,5 @@
 title: IEC-104 Port Misuse or Abnormal TCP Session Patterns
-id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0–9, a–f), og y er 8, 9, a eller b.
+id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0-9, a-f), og y er 8, 9, a eller b.
 description: Detects IEC-104-like traffic on unexpected ports, multiple concurrent
   master↔slave sessions, or RST storms indicative of scanning, DoS or MITM.
 status: test

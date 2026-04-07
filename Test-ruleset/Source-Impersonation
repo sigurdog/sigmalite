@@ -1,11 +1,12 @@
-title: Source Impersonation 
-id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0–9, a–f), og y er 8, 9, a eller b.
+title: Source Impersonation
+id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0-9, a-f), og y er 8, 9, a eller b.
 description: Detects communication attempts from unknown or
-  unauthorized master devices. RTUs should only communicate with a single 
-  predefined master. 
+  unauthorized master devices. RTUs should only communicate with a single
+  predefined master.
 status: test
 author: sigurdog
 # date: xxxx/xx/xx
+
 references:
   - <URL>
 logsource:
@@ -18,7 +19,7 @@ detection:
 
 unknown_master:
     source_ip|neq:
-      - "x.x.x.x" # SCADA Master 
+      - "10.20.0.124" # SCADA Master
 
     condition: iec104_port and known_masters and iec104_command
 

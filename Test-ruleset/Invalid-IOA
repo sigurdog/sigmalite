@@ -1,5 +1,5 @@
 title: Out-of-Range IOA
-id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0–9, a–f), og y er 8, 9, a eller b.
+id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0-9, a-f), og y er 8, 9, a eller b.
 description: Detects IEC-104 messages containing IOA values outside the valid configured range for the RTU.
 status: test
 author: sigurdog

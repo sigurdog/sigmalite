@@ -1,5 +1,5 @@
 title: Timing and Replay Anomalies
-id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0–9, a–f), og y er 8, 9, a eller b.
+id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0-9, a-f), og y er 8, 9, a eller b.
 description: Detects timing-related anomalies in IEC-104 communication, including
   replayed ASDUs, decreasing or irregular sequence numbers, extremely low
   inter-packet timing (ΔT), or abnormally high ASDU rate from an RTU. Often found
