@@ -12,6 +12,16 @@ references:
 logsource:
     product: network
     service: ids
+
+tags:
+  - attack.lateral-movement
+  - attack.credential-access
+
+fields:
+ - source_ip
+ - destination_ip
+ - destination_port
+
 detection:
     iec104_port:
         destination_port: 2404
@@ -21,18 +31,9 @@ unknown_master:
     source_ip|neq:
       - "10.20.0.124" # SCADA Master
 
-    condition: iec104_port and known_masters and iec104_command
-
-fields:
- - source_ip
- - destination_ip
- - destination_port
+    condition: iec104_port and unknown_masters
 
 falsepositives:
   - Testing
   - Legacy multi-master architecture (rare)
 
-level: high
-
-tags:
-  - 
