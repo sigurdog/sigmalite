@@ -5,33 +5,33 @@ description: Detects communication attempts from unknown or
   predefined master.
 status: test
 author: sigurdog
-# date: xxxx/xx/xx
+date: 2026/04/19
 
-references:
-  - <URL>
+#references:
+ # - <URL>
 logsource:
-    product: network
-    service: ids
+  product: network
+  service: ids
 
 tags:
   - attack.lateral-movement
   - attack.credential-access
 
 fields:
- - source_ip
- - destination_ip
- - destination_port
+ - src_ip
+ - dest_ip
+ - dest_port
 
 detection:
-    iec104_port:
-        destination_port: 2404
-        protocol: tcp
+  iec104_port:
+    destination_port: 2404
+    protocol: tcp
 
-unknown_master:
+  unknown_master:
     source_ip|neq:
       - "10.20.0.124" # SCADA Master
 
-    condition: iec104_port and unknown_masters
+  condition: iec104_port and not unknown_master
 
 falsepositives:
   - Testing
