@@ -1,5 +1,5 @@
 title: Select-Before-Operate (SBO) Misuse Detection
-id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0-9, a-f), og y er 8, 9, a eller b.
+id: ea54474f-f17a-4b72-9677-2c28722484c3
 description: Detects misuse of the Select-Before-Operate (SBO) mechanism in IEC-104,
   including Execute without Select, excessive Select commands, or
   Execute on IOA that was not properly selected.

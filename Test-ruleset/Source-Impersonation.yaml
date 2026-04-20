@@ -1,5 +1,5 @@
 title: Source Impersonation
-id: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx #Der x er hex (0-9, a-f), og y er 8, 9, a eller b.
+id: eec64d18-00fe-4306-adaa-81a4be0550bd
 description: Detects communication attempts from unknown or
   unauthorized master devices. RTUs should only communicate with a single
   predefined master.
