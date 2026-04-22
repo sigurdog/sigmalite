@@ -24,14 +24,14 @@ fields:
 
 detection:
   iec104_port:
-    destination_port: 2404
+    dest_port: 2404
     protocol: tcp
 
-  unknown_master:
-    source_ip:
+  known_master:
+    src_ip:
       - "10.20.0.124" # SCADA Master
 
-  condition: iec104_port and not unknown_master
+  condition: iec104_port and not known_master
 
 falsepositives:
   - Testing
