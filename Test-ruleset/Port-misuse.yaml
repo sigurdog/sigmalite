@@ -1,54 +1,35 @@
 title: IEC-104 Port Misuse or Abnormal TCP Session Patterns
 id: 03781f27-3b4c-4e36-8127-8827fbfda0e3
-description: Detects IEC-104-like traffic on unexpected ports, multiple concurrent
-  master↔slave sessions, or RST storms indicative of scanning, DoS or MITM.
+description: Detects IEC-104-like traffic on ports that is not the default 2404
 status: test
 author: sigurdog
-# date: xxxx/xx/xx
+date: 2026/04/22
 
 logsource:
   category: network_traffic
   product: network
   service: ids
 
+tags:
+  - attack.t1040
+  - attack.t1046
+
 detection:
-  # (1) IEC-104 payload on wrong TCP port
-  wrong_port:
-    source_ip: "10.20.0.124"       # SCADA master
-    destination_ip: "10.20.0.133"  # RTU / slave
-    destination_port|neq: 2404
-    iec104.detected: true          # field from ICS-aware IDS
+  iec104_traffic:
+    source_ip: "10.20.0.124"      # Master IP
+    destination_ip: "10.20.0.133" # Slave IP
+    iec104.detected: true
 
-  # (2) More than 1 concurrent TCP session (RTU should use ONE session)
-  multi_session:
-    session_count: ">1"
-    source_ip: "10.20.0.124"
-    destination_ip: "10.20.0.133"
+  port_2404:
+    destination_port: 2404
 
-  # (3) RST storm (excessive resets)
-  rst_storm:
-    network.transport: tcp
-    tcp.flags: "RST"
-    event_rate: ">20/s"
-    source_ip|in:
-      - "10.20.0.124"
-      - "10.20.0.133"
+  condition: iec104_traffic and not port_2404
 
-  condition: wrong_port or multi_session or rst_storm
 
 fields:
-  - source_ip
-  - destination_ip
-  - destination_port
-  - session_count
-  - tcp.flags
-  - event_rate
+  - src_ip
+  - dest_ip
+  - dest_port
 
 falsepositives:
-  - RTU reboot causing reconnection bursts
-  - Network troubleshooting periods
-
-level: high
-
-tags:
-  -
+  - Redundant/failover using alternative ports

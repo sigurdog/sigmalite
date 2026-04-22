@@ -28,7 +28,7 @@ detection:
     protocol: tcp
 
   unknown_master:
-    source_ip|neq:
+    source_ip:
       - "10.20.0.124" # SCADA Master
 
   condition: iec104_port and not unknown_master
