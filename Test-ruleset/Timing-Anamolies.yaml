@@ -12,6 +12,15 @@ logsource:
   product: network
   service: ids
 
+fields:
+  - source_ip
+  - destination_ip
+  - iec104.seq
+  - iec104.delta_ms
+
+tags:
+  -
+
   # (1) Sequence number decreased (should be monotonic)
 detection:
   seq_decrease:
@@ -31,17 +40,6 @@ detection:
 
   condition: seq_decrease or fast_replay or high_rate
 
-fields:
-  - source_ip
-  - destination_ip
-  - iec104.seq
-  - iec104.delta_ms
-
 falsepositives:
   - Clock drift in virtualized ICS testbeds
   - Burst traffic during RTU cold start
-
-level: high
-
-tags:
-  -
