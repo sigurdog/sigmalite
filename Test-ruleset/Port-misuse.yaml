@@ -16,12 +16,12 @@ tags:
 
 detection:
   iec104_traffic:
-    source_ip: "10.20.0.124"      # Master IP
-    destination_ip: "10.20.0.133" # Slave IP
-    iec104.detected: true
+    proto: TCP
+    src_ip: "10.20.0.124"      # Master IP
+    dest_ip: "10.20.0.133" # Slave IP
 
   port_2404:
-    destination_port: 2404
+    dest_port: 2404
 
   condition: iec104_traffic and not port_2404
 

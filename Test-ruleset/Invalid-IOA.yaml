@@ -16,7 +16,7 @@ detection:
   invalid_ioa:
     iec104.ioa|int:
       - "<0"
-      - ">9999"     # Tilpass til RTUens faktiske IOA-range
+      - ">2048"     # Tilpass til RTUens faktiske IOA-range
 
   condition: ioa_present and invalid_ioa
 

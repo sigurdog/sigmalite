@@ -1,0 +1,43 @@
+title: IEC-104 Command TypeID Sent from RTU
+id: 42dbd2ee-cdbf-4aa0-80c4-f8295aa649e1
+description: Detects IEC 60870-5-104 command TypeIDs originating from RTU (slave) devices.
+  Command ASDUs (TypeIDs 45–50) must only be sent by the controlling/master station.
+  Any such command sent by an RTU indicates a role violation, misconfiguration,
+  or potential compromise.
+status: test
+author: sigurdog
+date: 2026/04/22
+
+logsource:
+  product: network
+  service: ids
+
+tags:
+  - attack.command-and-control
+  - attack.impact
+  - ot.iec104
+  - ot.role-violation
+
+detection:
+  command_typeids:
+    iec104.typeid:
+      - 45   # C_SC_NA_1 – Single Command
+      - 46   # C_DC_NA_1 – Double Command
+      - 47   # C_RC_NA_1 – Regulating Step Command
+      - 48   # C_SE_NA_1 – Set-Point (Normalized)
+      - 49   # C_SE_NB_1 – Set-Point (Scaled)
+      - 50   # C_SE_NC_1 – Set-Point (Float)
+
+  rtu_source:
+    source_ip:
+      - "10.20.0.133"
+
+  condition: command_typeids and rtu_source
+
+fields:
+  - source_ip
+  - destination_ip
+  - iec104.typeid
+
+falsepositives:
+  - Misconfiguration
