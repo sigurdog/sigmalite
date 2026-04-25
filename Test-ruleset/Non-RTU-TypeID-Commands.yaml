@@ -12,6 +12,12 @@ logsource:
   product: network
   service: ids
 
+fields:
+  - source_ip
+  - destination_ip
+  - iec104.typeid
+
+
 tags:
   - attack.command-and-control
   - attack.impact
@@ -33,11 +39,6 @@ detection:
       - "10.20.0.133"
 
   condition: command_typeids and rtu_source
-
-fields:
-  - source_ip
-  - destination_ip
-  - iec104.typeid
 
 falsepositives:
   - Misconfiguration

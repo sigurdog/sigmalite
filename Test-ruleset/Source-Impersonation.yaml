@@ -13,14 +13,14 @@ logsource:
   product: network
   service: ids
 
-tags:
-  - attack.lateral-movement
-  - attack.credential-access
-
 fields:
  - src_ip
  - dest_ip
  - dest_port
+
+tags:
+  - attack.lateral-movement
+  - attack.credential-access
 
 detection:
   iec104_port:

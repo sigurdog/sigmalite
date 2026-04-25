@@ -9,6 +9,11 @@ logsource:
   product: network
   service: ids
 
+fields:
+  - source_ip
+  - destination_ip
+  - iec104.ioa
+
 detection:
   ioa_present:
     iec104.ioa|exists: true
@@ -20,14 +25,5 @@ detection:
 
   condition: ioa_present and invalid_ioa
 
-fields:
-  - source_ip
-  - destination_ip
-  - iec104.ioa
-
 falsepositives:
   - Misconfiguration
-
-level: high
-
-tags: 

@@ -11,6 +11,15 @@ logsource:
   product: network
   service: ids
 
+fields:
+  - source_ip
+  - destination_ip
+  - iec104.type
+  - iec104.operation
+  - iec104.ioa
+
+tags:
+  -
 detection:
   # IEC-104 Application Layer Type (example placeholders)
   select_cmd:
@@ -37,18 +46,6 @@ detection:
 
   condition: operate_no_select or repeated_select or operate_wrong_ioa
 
-fields:
-  - source_ip
-  - destination_ip
-  - iec104.type
-  - iec104.operation
-  - iec104.ioa
-
 falsepositives:
   - Commissioning or testing periods
   - Non-standard IEC-104 implementations lacking SBO semantics
-
-level: high
-
-tags:
-    - 

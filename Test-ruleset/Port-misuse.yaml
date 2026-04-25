@@ -10,6 +10,11 @@ logsource:
   product: network
   service: ids
 
+fields:
+  - src_ip
+  - dest_ip
+  - dest_port
+
 tags:
   - attack.t1040
   - attack.t1046
@@ -24,12 +29,6 @@ detection:
     dest_port: 2404
 
   condition: iec104_traffic and not port_2404
-
-
-fields:
-  - src_ip
-  - dest_ip
-  - dest_port
 
 falsepositives:
   - Redundant/failover using alternative ports
