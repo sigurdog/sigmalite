@@ -21,9 +21,6 @@ fields:
 tags:
   - attack.command-and-control
   - attack.impact
-  - ot.iec104
-  - ot.role-violation
-
 detection:
   command_typeids:
     iec104.typeid:

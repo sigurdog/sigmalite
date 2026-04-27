@@ -1,4 +1,4 @@
-title: Out-of-Range IOA
+title: Invalid IOA
 id: 02e00019-e0f4-4200-add3-f8a3542e5d9f
 description: Detects IEC-104 messages containing IOA values outside the valid configured range for the RTU.
 status: test
