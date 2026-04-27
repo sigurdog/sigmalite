@@ -12,18 +12,20 @@ logsource:
 fields:
   - source_ip
   - destination_ip
-  - iec104.ioa
+  - ioa
 
 detection:
   ioa_present:
-    iec104.ioa|exists: true
+    ioa|exists: true
 
-  invalid_ioa:
-    iec104.ioa|int:
-      - "<0"
-      - ">2048"     # Tilpass til RTUens faktiske IOA-range
+  ioa_negative:
+    ioa|lt: 0
 
-  condition: ioa_present and invalid_ioa
+  ioa_too_large:
+    ioa|gt: 2048
+    # Tilpass til RTUens faktiske IOA-range
+
+  condition: ioa_present and (ioa_negative or ioa_too_large)
 
 falsepositives:
   - Misconfiguration
