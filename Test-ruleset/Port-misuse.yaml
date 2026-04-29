@@ -11,9 +11,9 @@ logsource:
   service: ids
 
 fields:
-  - src_ip
-  - dest_ip
-  - dest_port
+  - id.orig_h # Sender IP
+  - id.resp_h # Dest IP
+  - id.resp_p # Dest port
 
 tags:
   - attack.t1040
@@ -21,14 +21,16 @@ tags:
 
 detection:
   iec104_traffic:
-    proto: TCP
-    src_ip: "10.20.0.124"      # Master IP
-    dest_ip: "10.20.0.133" # Slave IP
+    id.orig_h: "10.20.0.124"      # Master IP
+    id.resp_h: "10.20.0.133"      # Slave IP
+
+  has_asdu:
+    asdu_type|exists: true
 
   port_2404:
-    dest_port: 2404
+    id.resp_p: 2404
 
-  condition: iec104_traffic and not port_2404
+  condition: iec104_traffic and has_asdu and not port_2404
 
 falsepositives:
-  - Redundant/failover using alternative ports
+  - Redundant or failover using alternative ports

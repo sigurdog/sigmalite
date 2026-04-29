@@ -14,9 +14,9 @@ logsource:
   service: ids
 
 fields:
- - src_ip
- - dest_ip
- - dest_port
+ - id.orig_h
+ - id.resp_h
+ - id.resp_p
 
 tags:
   - attack.lateral-movement
@@ -24,14 +24,16 @@ tags:
 
 detection:
   iec104_port:
-    dest_port: 2404
-    protocol: tcp
+    id.resp_p: 2404
+
+  has_asdu:
+    asdu_type|exists: true
 
   known_master:
-    src_ip:
+    id.orig_h:
       - "10.20.0.124" # SCADA Master
 
-  condition: iec104_port and not known_master
+  condition: iec104_port and has_asdu and not known_master
 
 falsepositives:
   - Testing

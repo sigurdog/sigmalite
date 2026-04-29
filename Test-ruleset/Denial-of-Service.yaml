@@ -5,7 +5,7 @@ description: Detects abnormally high ASDU transmission frequency from an RTU, in
   20-100 ms for polling and 300-3000 ms for event-driven data.
 status: test
 author: sigurdog
-# date: xxxx/xx/xx
+date: 2026/04/27
 
 logsource:
   product: network
