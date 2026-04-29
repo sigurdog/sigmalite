@@ -12,23 +12,24 @@ logsource:
   service: ids
 
 fields:
-  - source_ip
-  - destination_ip
-  - iec104.typeid
+  - id.orig_h
+  - id.resp_h
+  - asdu_type
 
 tags:
   -
+
 detection:
   typeid_present:
-    iec104.typeid|exists: true
+    asdu_type|exists: true
 
   invalid_typeid:
-    iec104.typeid|int:
+    asdu_type|int:
       - "<1"
       - ">127"
 
   allowed_typeids:
-    iec104.typeid:
+    asdu_type:
       - 1    # M_SP_NA_1
       - 3    # M_DP_NA_1
       - 5    # M_ST_NA_1
