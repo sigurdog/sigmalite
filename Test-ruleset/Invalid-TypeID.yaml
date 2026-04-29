@@ -16,31 +16,20 @@ fields:
   - id.resp_h
   - asdu_type
 
-tags:
+#tags:
   -
 
 detection:
   typeid_present:
     asdu_type|exists: true
 
-  invalid_typeid:
-    asdu_type|int:
-      - "<1"
-      - ">127"
-
   allowed_typeids:
     asdu_type:
-      - 1    # M_SP_NA_1
-      - 3    # M_DP_NA_1
-      - 5    # M_ST_NA_1
-      - 9    # M_ME_NA_1
-      - 11   # M_ME_NB_1
-      - 13   # M_ME_NC_1
+      - M_ME_NC_1   # 13
+      - M_ME_TF_1   # 36
+      - C_CS_NA_1   # 103
 
-  unexpected_typeid:
-    condition: typeid_present and not allowed_typeids
-
-  condition: invalid_typeid or unexpected_typeid
+  condition: typeid_present and not allowed_typeids
 
 falsepositives:
   - Misconfiguration
